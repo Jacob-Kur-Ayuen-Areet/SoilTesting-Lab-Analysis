@@ -82,7 +82,31 @@
                     <i class="mdi mdi-robot-outline me-1 text-primary"></i> 
                     AI Soil Analysis & Fertilizer Recommendation Report
                 </h4>
-                <div style="white-space: pre-line; line-height: 1.75; font-size: 0.95rem; font-family: 'Courier New', Courier, monospace; background-color: #f8f9fa; padding: 20px; border-radius: 6px; border: 1px solid #e3e6f0; overflow-x: auto;">{{ $recommendation->ai_text }}</div>
+                <style>
+                    .ai-report-content {
+                        line-height: 1.75; font-size: 0.95rem; background-color: #f8f9fa; padding: 20px; border-radius: 6px; border: 1px solid #e3e6f0; overflow-x: auto;
+                    }
+                    .ai-report-content table {
+                        width: 100%;
+                        margin-bottom: 1.5rem;
+                        color: #212529;
+                        border-collapse: collapse;
+                    }
+                    .ai-report-content table th,
+                    .ai-report-content table td {
+                        padding: 0.75rem;
+                        vertical-align: top;
+                        border: 1px solid #dee2e6;
+                    }
+                    .ai-report-content table thead th {
+                        vertical-align: bottom;
+                        border-bottom: 2px solid #dee2e6;
+                        background-color: #e9ecef;
+                    }
+                </style>
+                <div class="ai-report-content">
+                    {!! \Illuminate\Support\Str::markdown($recommendation->ai_text) !!}
+                </div>
             </div>
         </div>
     </div>

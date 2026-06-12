@@ -187,11 +187,21 @@ class RecommendationController extends Controller
 
         // 2. Fallback to generating a PDF of the AI Recommendation if approved
         if ($Recommendation->ai_status === 'approved' && !empty($Recommendation->ai_text)) {
-            $html = view('request.partials.reco_pdf', ['ai_text' => $Recommendation->ai_text])->render();
+            $farmer_sample_information = \App\Models\FarmerRequest::where('request_id', $Recommendation->request_id)
+                ->with('farmerRequestSamples')
+                ->with('soilSampleResult')
+                ->with('farmer')
+                ->with('farm')
+                ->first();
+
+            $html = view('request.partials.pdf', [
+                'ai_text' => $Recommendation->ai_text,
+                'farmer_sample_information' => $farmer_sample_information
+            ])->render();
             
             $dompdf = new \Dompdf\Dompdf();
             $dompdf->loadHtml($html);
-            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->setPaper('A4', 'landscape');
             $dompdf->render();
 
             return \Response::make($dompdf->output(), 200, [

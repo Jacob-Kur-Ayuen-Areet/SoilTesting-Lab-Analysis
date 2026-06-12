@@ -17,10 +17,10 @@ class GeminiAIService
     public function __construct()
     {
         $this->apiKey   = config('services.gemini.api_key', '');
-        // gemini-2.0-flash: stable, lower-demand model.
-        $this->endpoint         = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
-        // gemini-1.5-flash: fallback if primary model is also overloaded.
-        $this->fallbackEndpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+        // gemini-2.5-flash: available model
+        $this->endpoint         = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
+        // fallback
+        $this->fallbackEndpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent';
     }
 
     /**
@@ -134,29 +134,6 @@ Generate a professional soil analysis interpretation report. Be thorough and com
 
 OUTPUT FORMAT (use exactly this structure):
 
----
-"INVESTING IN AFRICA'S FUTURE"
-Agriculture Advisory Services
-Department of Agricultural Sciences
-P.O Box 1320, Mutare, Zimbabwe
-
-**FARMER INFORMATION**
-
-| Field | Details |
-|---|---|
-| Farmer's Name | [value] |
-| Farm Name | [value] |
-| Date Received | [value] |
-| Receipt Number | [value] |
-| Email | [value] |
-| Postal Address | [value] |
-| Date Sampled | [value] |
-| Contact Phone | [value] |
-| Locality | [value] |
-| Number of Samples | [value] |
-| Avg Sub-Samples | [value] |
-| Advisor | [value] |
-
 **SOIL ANALYSIS RESULTS SHEET**
 
 | Lab No | Reference | pH (CaCl₂) | Colour | Texture | % Sand | % Silt | % Clay | Min. Initial N% | P₂O₅ (ppm) | K (meq%) | Mg (meq%) | Ca (meq%) | Zn (ppm) | Cu (ppm) | Mn (ppm) | Fe (ppm) |
@@ -190,21 +167,6 @@ You are an expert agronomist and crop nutritionist for the Department of Agricul
 Generate a COMPLETE, PROFESSIONAL Agricultural Advisory Services report. Be thorough. Do NOT truncate or summarize — output the entire report.
 
 OUTPUT FORMAT (follow exactly, replacing [placeholders] with real data and calculations):
-
----
-"INVESTING IN AFRICA'S FUTURE"
-Agriculture Advisory Services
-Department of Agricultural Sciences
-P.O Box 1320, Mutare, Zimbabwe
-
-FARMER'S NAME: [Farmer Name]    FARM NAME: [Farm Name]    DATE RECEIVED: [Date Received]
-RECEIPT NUMBER: [Receipt #]    E-Mail: [Email]
-POSTAL ADDRESS: [Postal Address]    DATE SAMPLED: [Date Sampled]
-CONTACT PHONE: [Phone]    I.C.A OR LOCALITY: [Locality]
-NUMBER OF SAMPLES: [#]    AVERAGE NUMBER OF SUB-SAMPLES TAKEN: [#]
-EARLIEST DATE OF COLLECTION: [Date]    NAME OF ADVISOR: [Advisor]
-
----
 
 **SAMPLE IDENTIFICATION / INTENDED CROP DETAILS**
 
